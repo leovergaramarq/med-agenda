@@ -1,8 +1,9 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { AuthStorageProvider } from './core/contexts/AuthStorageContext';
 
 import LandingPage from './pages/LandingPage';
+import NotFound from './pages/NotFound';
 
 function App() {
 	return (
@@ -10,12 +11,8 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="/" element={<LandingPage />} />
-					{/* <Route path="/signup" element={<SignUp />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/home" element={<Home />} />
-					<Route path="/schedule" element={<Schedule />} />
-					<Route path="/appointments" element={<Appointments />} />
-					<Route path="/404" element={<NotFound />} /> */}
+					<Route path="/404" element={<NotFound />} />
+					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</Router>
 		</AuthStorageProvider>
