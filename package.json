@@ -12,8 +12,11 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "7.43.9",
+    "react-modal": "3.16.1",
     "react-router-dom": "6.11.2",
     "react-tabs": "6.0.1",
+    "react-toastify": "9.1.2",
     "tailwind-merge": "1.12.0"
   },
   "devDependencies": {
