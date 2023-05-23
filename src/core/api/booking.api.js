@@ -1,4 +1,5 @@
 import ApiResponse from '../../shared/models/ApiResponse.model';
+import Booking from '../../shared/models/Booking.model';
 
 import { BOOKINGS_KEY } from '../constants/localStorage.constant';
 import * as localStorageUtil from '../utils/localStorage.util';
@@ -9,23 +10,27 @@ export async function getBookings() {
 }
 
 export async function getBookingsFromUser({ idUser }) {
-	const bookingsUser = (await getBookings()).data.find(
-		({ idUser: id }) => id === idUser
+	return new ApiResponse(
+		200,
+		(localStorageUtil.getValue(BOOKINGS_KEY) || []).filter(
+			({ idUser: id }) => id === idUser
+		)
 	);
-	return new ApiResponse(200, bookingsUser?.data || {});
 }
 
-export async function bookDay({ date, idUser }) {
-	const bookings = (await getBookings()).data;
-	let bookingsUser = bookings.find(({ idUser: id }) => id === idUser);
-	if (bookingsUser) {
-		bookingsUser.data[date] = true;
-	} else {
-		bookingsUser = { idUser, data: { [date]: true } };
-		bookings.push(bookingsUser);
+export async function createBooking({ idUser, date, name }) {
+	if (new Date() > new Date(date)) {
+		return new ApiResponse(400, {
+			message: 'You cannot book a date in the past'
+		});
 	}
+	const bookings = localStorageUtil.getValue(BOOKINGS_KEY) || [];
+	const booking = new Booking(name, date, idUser);
+	bookings.push(booking);
+
 	localStorageUtil.setValue(BOOKINGS_KEY, bookings);
-	return new ApiResponse(200, {
-		message: 'Day booked successfully'
+
+	return new ApiResponse(201, {
+		id: booking.id
 	});
 }

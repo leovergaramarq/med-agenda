@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import Button from './Button';
 import { removeTokenPayload } from '../../core/utils/session.util';
@@ -21,10 +21,16 @@ function Navbar() {
 			</a>
 			<ul className="flex gap-8 items-center">
 				<li className="cursor-pointer text-blue-primary font-medium hover:underline">
-					MIS CONSULTAS
+					<Link to="/booking">AGENDAR</Link>
 				</li>
 				<li className="cursor-pointer text-blue-primary font-medium hover:underline">
-					HISTORIAL DE CONSULTAS
+					<Link to="/booked">PRÓXIMAS CONSULTAS</Link>
+				</li>
+				<li className="cursor-pointer text-blue-primary font-medium hover:underline">
+					<Link to="/history">HISTORIAL</Link>
+				</li>
+				<li className="cursor-pointer text-blue-primary font-medium hover:underline">
+					NOTIFICACIONES
 				</li>
 				<li className="">
 					<Button className="rounded-full" onClick={handleLogout}>

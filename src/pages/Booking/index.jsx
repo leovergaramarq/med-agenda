@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
-import Calendar from '../shared/components/Calendar';
-import Appointments from '../shared/components/Appointments';
+import Appointments from './components/Appointments';
+import Calendar from './components/Calendar';
 
-import { getBookingsFromUser } from '../core/api/booking.api';
-import { getTokenPayload } from '../core/utils/session.util';
+import { getBookingsFromUser } from '../../core/api/booking.api';
+import { getTokenPayload } from '../../core/utils/session.util';
 
 function Booking() {
 	const [appointments, setAppointments] = useState(null);
@@ -25,18 +25,19 @@ function Booking() {
 		}
 	}, []);
 
+	// console.log('appointments', appointments);
 	return (
 		<div className="flex flex-row h-screen justify-center items-center gap-10 px-10">
 			{appointments ? (
 				<>
-					<Appointments schedule={appointments} />
+					<Appointments appointments={appointments} />
 					<Calendar
-						schedule={appointments}
-						setAppointment={setAppointments}
+						appointments={appointments}
+						setAppointments={setAppointments}
 					/>
 				</>
 			) : (
-				<div>Loading... </div>
+				<div>Loading...</div>
 			)}
 		</div>
 	);
