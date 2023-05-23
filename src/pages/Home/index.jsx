@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../shared/components/Button';
 import Footer from '../../shared/components/Footer';
-import NavbarGuest from '../../shared/components/NavbarGuest';
+import Navbar from '../../shared/components/Navbar';
 
 import { getTokenPayload } from '../../core/utils/session.util';
 
-function LandingPage() {
+function Home() {
 	const navigate = useNavigate();
 
 	const handleStart = () => {
@@ -16,15 +16,15 @@ function LandingPage() {
 
 	useEffect(() => {
 		const tokenPayload = getTokenPayload();
-		if (tokenPayload) navigate('/home');
+		if (!tokenPayload) navigate('/');
 	}, []);
 
 	return (
 		<>
-			<NavbarGuest />
+			<Navbar />
 			<div className="pt-20">
 				<div className="bg-landing-hero h-screen relative bg-cover bg-no-repeat">
-					<div className="absolute right-10 top-20 w-1/3">
+					{/* <div className="absolute right-10 top-20 w-1/3">
 						<div className="flex flex-col gap-4 px-10 py-8 rounded-3xl bg-white">
 							<div className="text-blue-primary font-semibold text-4xl">
 								Agenda tus consultas médicas
@@ -44,12 +44,12 @@ function LandingPage() {
 								EMPEZAR
 							</Button>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
-			<Footer />
+			{/* <Footer /> */}
 		</>
 	);
 }
 
-export default LandingPage;
+export default Home;
