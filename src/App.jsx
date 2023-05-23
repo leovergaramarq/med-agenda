@@ -4,7 +4,8 @@ import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Booking from './pages/Booking';
-import ProtectedRoute from './core/utils/ProtectedRoute';
+import ProtectedRoute from './shared/components/ProtectedRoute';
+import GuestRoute from './shared/components/GuestRoute';
 import LoginComponent from './pages/Login';
 
 function App() {
@@ -12,11 +13,30 @@ function App() {
 		<div className="font-wix-madefor-display">
 			<Router>
 				<Routes>
-					<Route path="/" element={<LandingPage />} />
-					<Route path="/login" element={<LoginComponent />} />
-					<Route path="/home" element={<Home />} />
-					<Route path="/404" element={<NotFound />} />
-					<Route path="/*" element={<NotFound />} />
+					<Route
+						path="/"
+						element={
+							<GuestRoute>
+								<LandingPage />
+							</GuestRoute>
+						}
+					/>
+					<Route
+						path="/login"
+						element={
+							<GuestRoute>
+								<LoginComponent />
+							</GuestRoute>
+						}
+					/>
+					<Route
+						path="/home"
+						element={
+							<ProtectedRoute>
+								<Home />
+							</ProtectedRoute>
+						}
+					/>
 					<Route
 						path="/booking"
 						element={
@@ -25,6 +45,7 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
+					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</Router>
 		</div>

@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AuthPanel from '../../shared/components/AuthPanel';
-
-import { getTokenPayload } from '../../core/utils/session.util';
 
 function Login() {
 	const navigate = useNavigate();
@@ -15,11 +12,6 @@ function Login() {
 	const onFinishSignup = () => {
 		navigate('/home');
 	};
-
-	useEffect(() => {
-		const tokenPayload = getTokenPayload();
-		if (tokenPayload) navigate('/home');
-	}, []);
 
 	return (
 		<div className="h-screen relative">

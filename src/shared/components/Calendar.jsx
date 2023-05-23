@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import { bookDay, getBookingsFromUser } from '../../core/api/booking.api';
+import { getTokenPayload } from '../../core/utils/session.util';
 
 function daysInMonth(month, year) {
 	return new Date(year, month, 0).getDate();
@@ -85,25 +87,19 @@ function CalendarDayBlock({ schedule, date, setAppointment }) {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Yes, book it!'
-		}).then((result) => {
+		}).then(async (result) => {
 			if (result.isConfirmed) {
 				Swal.fire(
 					'Booked!',
 					`Your appointment was booked for ${date_formated}.`,
 					'success'
 				);
-				localStorage.setItem(
-					'bookedDays',
-					JSON.stringify({
-						...schedule,
-						[date_parsed]: true
-					})
-				);
-				setAppointment({
-					...schedule,
-					[date_parsed]: true
+				const { id: idUser } = getTokenPayload();
+				await bookDay({
+					date: date_parsed,
+					idUser
 				});
-				console.log(schedule);
+				setAppointment((await getBookingsFromUser({ idUser })).data);
 				setOccupied(true);
 			}
 		});

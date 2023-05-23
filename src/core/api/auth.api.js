@@ -6,13 +6,13 @@ import * as localStorageUtil from '../utils/localStorage.util';
 import TokenPayload from '../../shared/models/TokenPayload.model';
 
 export async function login({ username, password }) {
-	const users = localStorageUtil.getValue(USERS_KEY);
-	if (!users) return new ApiResponse(404, 'User not found');
-
+	const users = localStorageUtil.getValue(USERS_KEY) || [];
 	const user = users.find((user) => user.username === username);
 	if (!user) return new ApiResponse(404, 'User not found');
 	if (user.password !== password)
-		return new ApiResponse(401, 'Wrong password');
+		return new ApiResponse(401, {
+			message: 'Wrong password'
+		});
 
 	return new ApiResponse(200, new TokenPayload(user.id));
 }
@@ -26,8 +26,8 @@ export async function signup({
 	phoneNumber,
 	phoneCode
 }) {
-	let users = localStorageUtil.getValue(USERS_KEY);
-	if (users && users.find((user) => user.username === username)) {
+	const users = localStorageUtil.getValue(USERS_KEY) || [];
+	if (users.find((user) => user.username === username)) {
 		return new ApiResponse(409, {
 			message: 'Username already exists'
 		});
@@ -42,8 +42,7 @@ export async function signup({
 		phoneNumber,
 		phoneCode
 	);
-	if (users) users.push(newUser);
-	else users = [newUser];
+	users.push(newUser);
 	localStorageUtil.setValue(USERS_KEY, users);
 
 	return new ApiResponse(200, new TokenPayload(newUser.id));

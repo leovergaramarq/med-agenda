@@ -11,6 +11,7 @@ class User {
 		phoneCode
 	) {
 		this.id = getNextId();
+		console.log(this.id);
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;

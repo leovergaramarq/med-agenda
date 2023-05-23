@@ -5,19 +5,12 @@ import Button from '../../shared/components/Button';
 import Footer from '../../shared/components/Footer';
 import NavbarGuest from '../../shared/components/NavbarGuest';
 
-import { getTokenPayload } from '../../core/utils/session.util';
-
 function LandingPage() {
 	const navigate = useNavigate();
 
 	const handleStart = () => {
 		navigate('/login');
 	};
-
-	useEffect(() => {
-		const tokenPayload = getTokenPayload();
-		if (tokenPayload) navigate('/home');
-	}, []);
 
 	return (
 		<>
