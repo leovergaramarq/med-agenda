@@ -3,6 +3,9 @@ export default {
 	content: ['./index.html', './src/**/*.{js,jsx}'],
 	theme: {
 		extend: {
+			animation: {
+				'change-color': 'change-color 1s ease-in-out infinite alternate'
+			},
 			fontFamily: {
 				'roboto-slab': ['Roboto Slab', 'serif'],
 				'wix-madefor-display': ['Wix Madefor Display', 'serif']
