@@ -10,11 +10,10 @@ export async function getBookings() {
 }
 
 export async function getBookingsFromUser({ idUser }) {
+	const bookings = localStorageUtil.getValue(BOOKINGS_KEY) || [];
 	return new ApiResponse(
 		200,
-		(localStorageUtil.getValue(BOOKINGS_KEY) || []).filter(
-			({ idUser: id }) => id === idUser
-		)
+		bookings.filter(({ idUser: id }) => id === idUser)
 	);
 }
 

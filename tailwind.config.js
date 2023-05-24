@@ -3,8 +3,14 @@ export default {
 	content: ['./index.html', './src/**/*.{js,jsx}'],
 	theme: {
 		extend: {
+			keyframes: {
+				spinner: {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' }
+				}
+			},
 			animation: {
-				'change-color': 'change-color 1s ease-in-out infinite alternate'
+				spinner: 'spinner 1s linear infinite'
 			},
 			fontFamily: {
 				'roboto-slab': ['Roboto Slab', 'serif'],
