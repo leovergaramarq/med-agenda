@@ -26,7 +26,6 @@ export async function createBooking({ idUser, date, name }) {
 	const bookings = localStorageUtil.getValue(BOOKINGS_KEY) || [];
 	const booking = new Booking(name, date, idUser);
 	bookings.push(booking);
-
 	localStorageUtil.setValue(BOOKINGS_KEY, bookings);
 
 	return new ApiResponse(201, {
