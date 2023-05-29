@@ -31,7 +31,7 @@ function Navbar({ children }) {
 						<Link to="/history">HISTORIAL</Link>
 					</li>
 					<li className="cursor-pointer text-blue-primary font-medium hover:underline">
-						NOTIFICACIONES
+						<Link to="/notifications">NOTIFICACIONES</Link>
 					</li>
 					<li className="">
 						<Button className="rounded-full" onClick={handleLogout}>
