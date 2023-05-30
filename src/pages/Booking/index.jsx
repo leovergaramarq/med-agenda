@@ -2,44 +2,55 @@ import { useState, useEffect } from 'react';
 
 import Appointments from './components/Appointments';
 import Calendar from './components/Calendar';
+import useLoader from '../../hooks/useLoader';
+import Navbar from '../../shared/components/Navbar';
 
 import { getBookingsFromUser } from '../../core/api/booking.api';
 import { getTokenPayload } from '../../core/utils/session.util';
 
 function Booking() {
 	const [appointments, setAppointments] = useState(null);
+	const { loading, setLoading, loader } = useLoader();
 
 	useEffect(() => {
 		if (!appointments) {
 			const { id } = getTokenPayload();
-			getBookingsFromUser({ idUser: id })
-				.then((res) => {
-					const { status, data } = res;
-					if (status === 200) {
-						setAppointments(data);
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+			setTimeout(() => {
+				getBookingsFromUser({ idUser: id })
+					.then((res) => {
+						const { status, data } = res;
+						if (status === 200) {
+							setAppointments(data ? data : []);
+						}
+					})
+					.catch((err) => {
+						throw err;
+					})
+					.finally(() => {
+						setLoading(false);
+					});
+			}, 1000);
 		}
 	}, []);
 
-	// console.log('appointments', appointments);
 	return (
-		<div className="flex flex-row h-screen justify-center items-center gap-10 px-10">
-			{appointments ? (
-				<>
-					<Appointments appointments={appointments} />
-					<Calendar
-						appointments={appointments}
-						setAppointments={setAppointments}
-					/>
-				</>
-			) : (
-				<div>Loading...</div>
-			)}
-		</div>
+		<>
+			<Navbar>
+				<div className="flex flex-row h-screen justify-center items-center gap-10 px-14">
+					{!loading ? (
+						<>
+							<Appointments appointments={appointments} />
+							<Calendar
+								appointments={appointments}
+								setAppointments={setAppointments}
+							/>
+						</>
+					) : (
+						loader()
+					)}
+				</div>
+			</Navbar>
+		</>
 	);
 }
 

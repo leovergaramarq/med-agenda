@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
 import { createBooking } from '../../../core/api/booking.api';
 
 import { getTokenPayload } from '../../../core/utils/session.util';
 
-function CalendarDayBlock({ appointments, setAppointments, date }) {
-	const numeric_date = date.toLocaleString('en-us', { day: 'numeric' });
-	const date_formated = date.toLocaleString('en-us', {
+function CalendarDayBlock({
+	appointments,
+	setAppointments,
+	current_date,
+	month_date
+}) {
+	const current_date_formated = current_date.toLocaleString('en-us', {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric'
 	});
-	const date_parsed = date
+
+	const current_date_parsed = current_date
 		.toLocaleString('en-us', {
 			year: 'numeric',
 			month: 'numeric',
@@ -21,8 +26,22 @@ function CalendarDayBlock({ appointments, setAppointments, date }) {
 		.replaceAll('/', '-');
 
 	const [occupied, setOccupied] = useState(
-		appointments.find(({ date }) => date === date_parsed) ? true : false
+		appointments.find(({ date }) => date === current_date_parsed)
+			? true
+			: false
 	);
+
+	useEffect(() => {
+		setOccupied(
+			appointments.find(({ date }) => date === current_date_parsed)
+				? true
+				: false
+		);
+	}, [month_date]);
+
+	const numeric_current_date = current_date.toLocaleString('en-us', {
+		day: 'numeric'
+	});
 
 	const style = occupied
 		? 'bg-gray-300 cursor-not-allowed'
@@ -43,14 +62,14 @@ function CalendarDayBlock({ appointments, setAppointments, date }) {
 			if (result.isConfirmed) {
 				Swal.fire(
 					'Booked!',
-					`Your appointment was booked for ${date_formated}.`,
+					`Your appointment was booked for ${current_date_formated}.`,
 					'success'
 				);
 				const { id: idUser } = getTokenPayload();
 				const name = 'Appointment';
 				const { data, status } = await createBooking({
 					idUser,
-					date: date_parsed,
+					date: current_date_parsed,
 					name
 				});
 				if (status === 201) {
@@ -60,7 +79,7 @@ function CalendarDayBlock({ appointments, setAppointments, date }) {
 						{
 							id,
 							idUser,
-							date: date_parsed,
+							date: current_date_parsed,
 							name,
 							pending: true
 						}
@@ -84,11 +103,16 @@ function CalendarDayBlock({ appointments, setAppointments, date }) {
 		<>
 			<button
 				type="submit"
-				className={'w-24 h-24 text-xl rounded ' + style}
+				className={
+					'w-24 h-24 text-xl rounded ' +
+					style +
+					' hover:scale-110 transform transition-all duration-500'
+				}
 				onClick={() => handleClick()}
 				disabled={occupied}
+				title={current_date_formated}
 			>
-				{numeric_date}
+				{numeric_current_date}
 			</button>
 		</>
 	);

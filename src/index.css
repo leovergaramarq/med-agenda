@@ -367,3 +367,7 @@ template {
 [hidden] {
 	display: none;
 }
+
+.loader{
+   border-top-color: #3498db;
+}

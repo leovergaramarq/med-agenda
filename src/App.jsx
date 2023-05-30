@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import Notifications from './pages/Notifications';
 import Booking from './pages/Booking';
 import ProtectedRoute from './shared/components/ProtectedRoute';
 import GuestRoute from './shared/components/GuestRoute';
@@ -42,6 +43,14 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<Booking />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/notifications"
+						element={
+							<ProtectedRoute>
+								<Notifications />
 							</ProtectedRoute>
 						}
 					/>
