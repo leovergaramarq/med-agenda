@@ -4,6 +4,7 @@ import { updateBooking } from '../../../core/api/booking.api';
 
 import './StarRating.css';
 import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
 
 const StarRating = ({appointment, setOpenModal, setOnRate}) => {
 	const [rating, setRating] = useState(0);
@@ -11,6 +12,10 @@ const StarRating = ({appointment, setOpenModal, setOnRate}) => {
 	const comments = useRef()
 
 	const onFinished = async () => {
+		if(rating === 0){
+			toast.error('You must rate the appointment');
+			return;
+		}
 		const response = await updateBooking(appointment.id, {rating, comments: comments.current.value})
 		if (response.status === 200) {
 			Swal.fire(
@@ -48,6 +53,7 @@ const StarRating = ({appointment, setOpenModal, setOnRate}) => {
 			})}
 			<input ref={comments} type="text" name='comments'/>
 			<button onClick={onFinished}>Submit</button>
+			<ToastContainer />
 		</div>
 	);
 };
