@@ -1,24 +1,15 @@
+import moment from 'moment';
 import { daysInMonth } from '../../../core/utils/general.util';
 
-function CalendarControllers({ currDate, changeDate, changeDays }) {
+function CalendarControllers({ currDate, changeDate }) {
 	const handlePrev = (e) => {
 		e.preventDefault();
-		const prevMonth = currDate.getMonth() - 1;
-		const newDays = Array.from({
-			length: daysInMonth(prevMonth, currDate.getFullYear())
-		}).map((_, i) => i + 1);
-		changeDate(new Date(currDate.setMonth(prevMonth)));
-		changeDays(newDays);
+		changeDate(moment(currDate).subtract(1, 'month').toDate());
 	};
 
 	const handleNext = (e) => {
 		e.preventDefault();
-		const nextMonth = currDate.getMonth() + 1;
-		const newDays = Array.from({
-			length: daysInMonth(nextMonth, currDate.getFullYear())
-		}).map((_, i) => i + 1);
-		changeDate(new Date(currDate.setMonth(nextMonth)));
-		changeDays(newDays);
+		changeDate(moment(currDate).add(1, 'month').toDate());
 	};
 
 	return (

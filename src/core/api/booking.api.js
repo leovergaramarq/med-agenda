@@ -1,3 +1,4 @@
+import moment from 'moment';
 import ApiResponse from '../../shared/models/ApiResponse.model';
 import Booking from '../../shared/models/Booking.model';
 
@@ -18,9 +19,9 @@ export async function getBookingsFromUser({ idUser }) {
 }
 
 export async function createBooking({ idUser, date, name }) {
-	if (new Date() > new Date(date)) {
+	if (moment() > moment(date)) {
 		return new ApiResponse(400, {
-			message: 'You cannot book a date in the past'
+			message: 'You can only book with one or more days of anticipation. The date must be later than today'
 		});
 	}
 	const bookings = localStorageUtil.getValue(BOOKINGS_KEY) || [];
