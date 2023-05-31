@@ -7,8 +7,4 @@ import './index.css';
 // https://reactcommunity.org/react-modal/accessibility/
 ReactModal.setAppElement('#root');
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
-);
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);

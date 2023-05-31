@@ -1,12 +1,4 @@
-function AppointmentCard({ info }) {
-	console.log(info);
-	return (
-		<div className="w-4/5 rounded h-20 gap-4 flex flex-row items-center justify-center bg-green-300 hover:scale-110 transform transition-all duration-500">
-			<div>{info.date}</div>
-			<div>{info.name}</div>
-		</div>
-	);
-}
+import AppointmentCard from '../../../shared/components/AppointmentCard'
 
 function Appointments({ appointments }) {
 	return (
