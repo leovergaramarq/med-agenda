@@ -1,9 +1,9 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { getTokenPayload } from '../../core/utils/session.util';
 
-function ProtectedRoute({ children }) {
-	if (!getTokenPayload()) return <Navigate to="/" />;
-	return children;
+function ProtectedRoute() {
+	if (!getTokenPayload()) return <Navigate to="/login" />;
+	return <Outlet/>;
 }
 
 export default ProtectedRoute;

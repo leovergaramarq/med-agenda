@@ -1,9 +1,11 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { getTokenPayload } from '../../core/utils/session.util';
 
-function GuestRoute({ children }) {
+function GuestRoute() {
 	if (getTokenPayload()) return <Navigate to="/home" />;
-	return children;
+	return <>
+		<Outlet />
+	</>;
 }
 
 export default GuestRoute;

@@ -14,46 +14,18 @@ function App() {
 		<div className="font-wix-madefor-display">
 			<Router>
 				<Routes>
-					<Route
-						path="/"
-						element={
-							<GuestRoute>
-								<LandingPage />
-							</GuestRoute>
-						}
-					/>
-					<Route
-						path="/login"
-						element={
-							<GuestRoute>
-								<LoginComponent />
-							</GuestRoute>
-						}
-					/>
-					<Route
-						path="/home"
-						element={
-							<ProtectedRoute>
-								<Home />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/booking"
-						element={
-							<ProtectedRoute>
-								<Booking />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/notifications"
-						element={
-							<ProtectedRoute>
-								<Notifications />
-							</ProtectedRoute>
-						}
-					/>
+					<Route path="" element={<GuestRoute />}>
+						<Route index path="/" element={<LandingPage />} />
+						<Route path="/login" element={<LoginComponent />} />
+					</Route>
+					<Route path="" element={<ProtectedRoute />}>
+						<Route path="/home" element={<Home />} />
+						<Route path="/booking" element={<Booking />} />
+						<Route
+							path="/notifications"
+							element={<Notifications />}
+						/>
+					</Route>
 					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</Router>
