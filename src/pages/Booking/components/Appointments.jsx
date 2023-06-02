@@ -1,12 +1,4 @@
-function AppointmentCard({ info }) {
-	console.log(info);
-	return (
-		<div className="w-4/5 rounded h-20 gap-4 flex flex-row items-center justify-center bg-green-300 hover:scale-110 transform transition-all duration-500">
-			<div>{info.date}</div>
-			<div>{info.name}</div>
-		</div>
-	);
-}
+import AppointmentCard from '../../../shared/components/AppointmentCard';
 
 function Appointments({ appointments }) {
 	return (
@@ -16,15 +8,19 @@ function Appointments({ appointments }) {
 			) : (
 				<>
 					<h2 className="pl-5 pt-5 text-2xl mb-4">
-						Scheduled medical appointments
+						Upcoming scheduled medical appointments
 					</h2>
 					<div className="h-full flex flex-col gap-4 items-center overflow-y-auto">
-						{appointments.map((appointment) => (
-							<AppointmentCard
-								key={appointment.id}
-								info={appointment}
-							/>
-						))}
+						{appointments
+							.filter((appointment) => {
+								return new Date() < new Date(appointment.date);
+							})
+							.map((appointment) => (
+								<AppointmentCard
+									key={appointment.id}
+									info={appointment}
+								/>
+							))}
 					</div>
 				</>
 			)}

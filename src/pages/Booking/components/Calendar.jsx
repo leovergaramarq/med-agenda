@@ -3,22 +3,29 @@ import { useEffect, useState } from 'react';
 import CalendarControllers from './CalendarControllers';
 import CalendarDayBlock from './CalendarDayBook';
 
-import { daysInMonth } from '../../../core/utils/general.util';
+import moment from 'moment';
 
 function Calendar({ appointments, setAppointments }) {
 	const [date, setDate] = useState(new Date());
 	const [days, setDays] = useState(() =>
 		Array.from({
-			length: daysInMonth(date.getMonth(), date.getFullYear())
+			length: moment(date).daysInMonth()
 		}).map((_, i) => i + 1)
 	);
+
+	useEffect(() => {
+		setDays(
+			Array.from({
+				length: moment(date).daysInMonth()
+			}).map((_, i) => i + 1)
+		)
+	}, [date]);
 
 	return (
 		<div>
 			<CalendarControllers
 				currDate={date}
 				changeDate={setDate}
-				changeDays={setDays}
 			/>
 			<div className="grid gap-x-8 gap-y-4 grid-cols-7 mt-12">
 				<div className="text-center">Sunday</div>
@@ -32,7 +39,7 @@ function Calendar({ appointments, setAppointments }) {
 					<CalendarDayBlock
 						key={i}
 						current_date={
-							new Date(date.getFullYear(), date.getMonth(), day)
+							moment(date).set('date', day)
 						}
 						month_date={date}
 						setAppointments={setAppointments}

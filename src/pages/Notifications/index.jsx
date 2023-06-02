@@ -31,7 +31,7 @@ function Notifications() {
 
 	return (
 		<>
-			<Navbar>
+			<Navbar/>
 				<div className="flex justify-center items-center h-screen w-full">
 					{!loading ? (
 						<Menu notifications={notifications}></Menu>
@@ -39,7 +39,6 @@ function Notifications() {
 						loader()
 					)}
 				</div>
-			</Navbar>
 		</>
 	);
 }

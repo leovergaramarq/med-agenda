@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { createBooking } from '../../../core/api/booking.api';
 
 import { getTokenPayload } from '../../../core/utils/session.util';
+import { DATE_FORMAT } from '../../../core/constants/date.constant';
 
 function CalendarDayBlock({
 	appointments,
@@ -11,19 +12,8 @@ function CalendarDayBlock({
 	current_date,
 	month_date
 }) {
-	const current_date_formated = current_date.toLocaleString('en-us', {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric'
-	});
 
-	const current_date_parsed = current_date
-		.toLocaleString('en-us', {
-			year: 'numeric',
-			month: 'numeric',
-			day: 'numeric'
-		})
-		.replaceAll('/', '-');
+	const current_date_parsed = current_date.format(DATE_FORMAT)
 
 	const [occupied, setOccupied] = useState(
 		appointments.find(({ date }) => date === current_date_parsed)
@@ -39,9 +29,7 @@ function CalendarDayBlock({
 		);
 	}, [month_date]);
 
-	const numeric_current_date = current_date.toLocaleString('en-us', {
-		day: 'numeric'
-	});
+	const numeric_current_date = current_date.format('D');
 
 	const style = occupied
 		? 'bg-gray-300 cursor-not-allowed'
@@ -62,7 +50,7 @@ function CalendarDayBlock({
 			if (result.isConfirmed) {
 				Swal.fire(
 					'Booked!',
-					`Your appointment was booked for ${current_date_formated}.`,
+					`Your appointment was booked for ${current_date_parsed}.`,
 					'success'
 				);
 				const { id: idUser } = getTokenPayload();
@@ -88,7 +76,7 @@ function CalendarDayBlock({
 				} else if (status === 400) {
 					Swal.fire(
 						'Error',
-						'Cannot book a date in the past',
+						'You can only book with one or more days of anticipation. The date must be later than today',
 						'error'
 					);
 				} else {
@@ -110,7 +98,7 @@ function CalendarDayBlock({
 				}
 				onClick={() => handleClick()}
 				disabled={occupied}
-				title={current_date_formated}
+				title={current_date_parsed}
 			>
 				{numeric_current_date}
 			</button>
