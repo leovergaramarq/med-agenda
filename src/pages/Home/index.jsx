@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 
 function Home() {
-
 	useEffect(() => {
 		const { id } = getTokenPayload();
 		setTimeout(() => {
@@ -24,26 +23,22 @@ function Home() {
 									autoClose: 5000,
 									/* hideProgressBar: false, */
 									closeOnClick: true,
-									pauseOnHover: true,
+									pauseOnHover: true
 								}
 							);
-						}
-						);
+						});
 					}
 				})
 				.catch((err) => {
 					throw err;
-				})
+				});
 		}, 1000);
 	}, []);
 
 	return (
 		<>
-			<Navbar />
 			<ToastContainer />
-			<div className="pt-20">
-				<div className="bg-landing-hero h-screen relative bg-cover bg-no-repeat"></div>
-			</div>
+			<div className="bg-landing-hero h-screen relative bg-cover bg-no-repeat"></div>
 		</>
 	);
 }
