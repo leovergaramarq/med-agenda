@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
+import moment from 'moment';
 
 import AppointmentCard from '../../shared/components/AppointmentCard';
 
 import useLoader from '../../hooks/useLoader';
 import { getBookingsFromUser } from '../../core/api/booking.api';
 import { getTokenPayload } from '../../core/utils/session.util';
-import Navbar from '../../shared/components/Navbar';
-import moment from 'moment';
 import Modal from '../../shared/components/Modal';
 import StarRating from '../../shared/components/StarRating/StarRating';
 
@@ -23,8 +22,10 @@ function History() {
 	};
 
 	const styleModal = {
-		overlay: {
-			outerHeight: '50px'
+		content: {
+			// outerHeight: '50px',
+			width: 'min-content',
+			height: 'min-content'
 		}
 	};
 
@@ -87,9 +88,9 @@ function History() {
 					)}
 				</div>
 			)}
-			<Modal style={styleModal} isOpen={modal} setIsOpen={setModal}>
-				<div className="flex flex-col justify-center items-center">
-					<div className="flex flex-col gap-2 text-center">
+			<Modal styles={styleModal} isOpen={modal} setIsOpen={setModal}>
+				<div className="flex flex-col justify-center items-center px-20">
+					<div className="flex flex-col gap-2 text-center w-80">
 						<h1 className="text-4xl">How was your experience?</h1>
 						<p className="text-base">
 							Our dedicated team is committed to acting upon the

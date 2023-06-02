@@ -10,94 +10,66 @@ function CalendarDayBlock({
 	appointments,
 	setAppointments,
 	current_date,
-	month_date
+	month_date,
+	selectedDate,
+	setSelectedDate
 }) {
+	const current_date_parsed = current_date.format(DATE_FORMAT);
 
-	const current_date_parsed = current_date.format(DATE_FORMAT)
+	const getBookedAppointment = () => {
+		return appointments.find(({ date }) => date === current_date_parsed);
+	};
 
-	const [occupied, setOccupied] = useState(
-		appointments.find(({ date }) => date === current_date_parsed)
-			? true
-			: false
+	const [bookedAppointment, setBookedAppointment] = useState(
+		getBookedAppointment()
 	);
 
 	useEffect(() => {
-		setOccupied(
-			appointments.find(({ date }) => date === current_date_parsed)
-				? true
-				: false
-		);
-	}, [month_date]);
+		setBookedAppointment(getBookedAppointment());
+	}, [month_date, appointments]);
 
 	const numeric_current_date = current_date.format('D');
 
-	const style = occupied
-		? 'bg-gray-300 cursor-not-allowed'
-		: 'bg-white border-b-4 border-green-500';
-
-	const handleClick = () => {
-		if (occupied)
+	const handleSelect = () => {
+		if (bookedAppointment) {
 			return Swal('Error', 'This day is already booked', 'error');
-		Swal.fire({
-			title: 'Are you sure?',
-			text: 'You are going to book this day for your appointment.',
-			icon: 'question',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, book it!'
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				Swal.fire(
-					'Booked!',
-					`Your appointment was booked for ${current_date_parsed}.`,
-					'success'
-				);
-				const { id: idUser } = getTokenPayload();
-				const name = 'Appointment';
-				const { data, status } = await createBooking({
-					idUser,
-					date: current_date_parsed,
-					name
-				});
-				if (status === 201) {
-					const { id } = data;
-					setAppointments([
-						...appointments,
-						{
-							id,
-							idUser,
-							date: current_date_parsed,
-							name,
-							pending: true
-						}
-					]);
-					setOccupied(true);
-				} else if (status === 400) {
-					Swal.fire(
-						'Error',
-						'You can only book with one or more days of anticipation. The date must be later than today',
-						'error'
-					);
-				} else {
-					Swal.fire('Error', 'Something went wrong', 'error');
-					console.log('Error', data);
-				}
-			}
-		});
+		}
+		if (current_date_parsed < new Date().toISOString().split('T')[0]) {
+			return Swal(
+				'Error',
+				'You can only book with one or more days of anticipation. The date must be later than today',
+				'error'
+			);
+		}
+		if (selectedDate !== current_date_parsed) {
+			setSelectedDate(current_date_parsed);
+		} else {
+			setSelectedDate(null);
+		}
 	};
 
 	return (
 		<>
 			<button
 				type="submit"
-				className={
-					'w-24 h-24 text-xl rounded ' +
-					style +
-					' hover:scale-110 transform transition-all duration-500'
-				}
-				onClick={() => handleClick()}
-				disabled={occupied}
+				// className={`
+				// w-24 h-24 text-xl rounded ${
+				// 	bookedAppointment
+				// 		? 'bg-gray-300 cursor-not-allowed'
+				// 		: 'bg-white border-b-4 border-blue-primary text-white hover:scale-110 transform transition-all duration-500'
+				// }`}
+				className={`
+				w-24 h-24 text-xl rounded ${
+					bookedAppointment
+						? bookedAppointment.pending
+							? 'bg-blue-primary text-white cursor-not-allowed'
+							: 'bg-gray-300 cursor-not-allowed'
+						: selectedDate === current_date_parsed
+						? 'bg-green-400 text-white hover:scale-110 transform transition-all duration-500'
+						: 'bg-white border-b-4 hover:scale-110 transform transition-all duration-100'
+				}`}
+				onClick={handleSelect}
+				disabled={bookedAppointment}
 				title={current_date_parsed}
 			>
 				{numeric_current_date}

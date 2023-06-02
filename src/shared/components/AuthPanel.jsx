@@ -31,7 +31,7 @@ function AuthPanel({ onFinishLogin, onFinishSignup }) {
 									: ''
 							}
 						>
-							Iniciar sesión
+							Login
 						</div>
 					</Tab>
 					<Tab>
@@ -42,7 +42,7 @@ function AuthPanel({ onFinishLogin, onFinishSignup }) {
 									: ''
 							}
 						>
-							Registrarse
+							Sign up
 						</div>
 					</Tab>
 				</TabList>

@@ -46,23 +46,23 @@ function NavbarGuest() {
 			>
 				{modalContent}
 			</Modal>
-			<nav className="flex justify-between items-center px-8 py-6 fixed w-full z-10 bg-white">
+			<nav className="flex justify-between items-center gap-8 px-8 py-6 fixed w-full z-10 bg-white">
 				<a
 					href="."
-					className="cursor-pointer text-blue-primary font-semibold text-2xl ml-8"
+					className="text-center cursor-pointer text-blue-primary font-semibold text-2xl ml-8"
 				>
 					MedAgenda
 				</a>
-				<ul className="flex gap-8 items-center">
-					<li className="cursor-pointer text-blue-primary font-medium hover:underline">
+				<ul className="flex gap-8 lg:gap-6 md:gap-4 sm:gap-2 items-center">
+					<li className="text-center cursor-pointer text-blue-primary font-medium hover:underline">
 						HOME
 					</li>
-					<li className="cursor-pointer text-blue-primary font-medium hover:underline">
-						SOBRE NOSOTROS
+					<li className="text-center cursor-pointer text-blue-primary font-medium hover:underline">
+						ABOUT
 					</li>
 					<li className="">
 						<Button className="rounded-full" onClick={handleLogin}>
-							INICIAR SESIÓN
+							LOGIN
 						</Button>
 					</li>
 				</ul>

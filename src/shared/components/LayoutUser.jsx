@@ -4,7 +4,7 @@ function LayoutUser({ children }) {
 	return (
 		<>
 			<Navbar />
-			<div className="pt-24">{children}</div>
+			<div className="pt-24 h-screen flex flex-col">{children}</div>
 		</>
 	);
 }

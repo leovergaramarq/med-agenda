@@ -2,10 +2,10 @@ import * as localStorageUtil from './../../core/utils/localStorage.util';
 import { BOOKINGS_KEY } from '../../core/constants/localStorage.constant';
 
 class Booking {
-	constructor(name, date, idUser) {
+	constructor(idType, date, idUser) {
 		this.id = Booking.#getNextId();
 		this.pending = new Date() < new Date(date);
-		this.name = name;
+		this.idType = idType;
 		this.date = date;
 		this.idUser = idUser;
 	}

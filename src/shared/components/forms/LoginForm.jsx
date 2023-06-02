@@ -64,7 +64,7 @@ function LoginForm({ onFinish }) {
 						name="username"
 						id="username"
 						className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent"
-						placeholder="Nombre de usuario"
+						placeholder="Username"
 						{...register('username', {
 							required: true,
 							// minLength: 2,
@@ -79,7 +79,7 @@ function LoginForm({ onFinish }) {
 					/>
 					{errors.username && (
 						<span className="text-xs text-red-500 absolute bottom-0 transform translate-y-full">
-							Nombre de usuario no válido
+							Invalid username
 						</span>
 					)}
 				</div>
@@ -89,7 +89,7 @@ function LoginForm({ onFinish }) {
 						name="password"
 						id="password"
 						className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent"
-						placeholder="Contraseña"
+						placeholder="Password"
 						{...register('password', {
 							required: true
 							// minLength: 5,
@@ -113,7 +113,7 @@ function LoginForm({ onFinish }) {
 				}}
 				disabled={loading}
 			>
-				Iniciar sesión
+				Login
 			</Button>
 		</form>
 	);

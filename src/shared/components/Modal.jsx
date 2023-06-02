@@ -6,6 +6,7 @@ function Modal({ isOpen, setIsOpen, styles, children }) {
 	const onClose = () => {
 		setIsOpen(false);
 	};
+	console.log(styles.overlay);
 
 	return (
 		<ReactModal

@@ -20,21 +20,19 @@ function LandingPage() {
 					<div className="absolute right-10 top-20 w-1/3">
 						<div className="flex flex-col gap-4 px-10 py-8 rounded-3xl bg-white">
 							<div className="text-blue-primary font-semibold text-4xl">
-								Agenda tus consultas médicas
+								Book your medical consultation now!
 							</div>
 							<div className="text-blue-primary">
-								Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Asperiores minus expedita
-								eveniet recusandae ad, totam hic quisquam
-								facilis, quae architecto cum mollitia sint
-								corporis voluptate dolorum explicabo tempora
-								quidem maiores?
+								Say goodbye to long waiting times and phone
+								calls. Our intuitive online platform allows you
+								to effortlessly book medical appointments at
+								your preferred date, time, and location.
 							</div>
 							<Button
 								className="bg-green-primary mt-2 rounded-full w-min"
 								onClick={handleStart}
 							>
-								EMPEZAR
+								GET STARTED
 							</Button>
 						</div>
 					</div>

@@ -33,14 +33,14 @@ function SignupForm({ onFinish }) {
 					setTokenPayload(data);
 					if (typeof onFinish === 'function') onFinish(data);
 				} else if (status === 409) {
-					setError('Nombre de usuario no disponible');
+					setError('Username already exists');
 				} else {
-					setError('Error inesperado');
+					setError('Unexpected error');
 				}
 			})
 			.catch((err) => {
 				console.log(err);
-				setError('Error del servidor');
+				setError('Server error');
 			})
 			.finally(() => setLoading(false));
 	};
@@ -58,7 +58,7 @@ function SignupForm({ onFinish }) {
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-col gap-1 w-full relative">
 					<label htmlFor="username">
-						<span className="text-gray-500">Nombre de usuario</span>
+						<span className="text-gray-500">Username</span>
 					</label>
 					<input
 						type="text"
@@ -79,14 +79,14 @@ function SignupForm({ onFinish }) {
 					/>
 					{errors.username && (
 						<span className="text-xs text-red-500 absolute bottom-0 transform translate-y-full">
-							Nombre de usuario no válido
+							Invalid username
 						</span>
 					)}
 				</div>
 				<div className="flex gap-2 w-full">
 					<div className="flex flex-col gap-1 relative grow">
 						<label htmlFor="password">
-							<span className="text-gray-500">Contraseña</span>
+							<span className="text-gray-500">Password</span>
 						</label>
 						<input
 							type="password"
@@ -101,14 +101,14 @@ function SignupForm({ onFinish }) {
 						/>
 						{errors.password && (
 							<span className="text-xs text-red-500 absolute bottom-0 transform translate-y-full">
-								Contraseña no válida
+								Invalid password
 							</span>
 						)}
 					</div>
 					<div className="flex flex-col gap-1 relative grow">
 						<label htmlFor="confirmPassword">
 							<span className="text-gray-500">
-								Confirmar contraseña
+								Confirm password
 							</span>
 						</label>
 						<input
@@ -123,7 +123,7 @@ function SignupForm({ onFinish }) {
 						/>
 						{errors.confirmPassword && (
 							<span className="text-xs text-red-500 absolute bottom-0 transform translate-y-full">
-								Contraseña no válida
+								Passwords do not match
 							</span>
 						)}
 					</div>
@@ -131,7 +131,7 @@ function SignupForm({ onFinish }) {
 				<div className="flex gap-2 w-full">
 					<div className="flex flex-col gap-1 relative">
 						<label htmlFor="phoneNumber">
-							<span className="text-gray-500">Teléfono</span>
+							<span className="text-gray-500">Phone number</span>
 						</label>
 						<div id="phoneNumber" className="flex gap-1 grow">
 							<select
@@ -156,15 +156,13 @@ function SignupForm({ onFinish }) {
 						</div>
 						{errors.phoneNumber && (
 							<span className="text-xs text-red-500 absolute bottom-0 transform translate-y-full">
-								Teléfono no válido
+								Invalid phone number
 							</span>
 						)}
 					</div>
 					<div className="flex flex-col gap-1 relative grow">
 						<label htmlFor="email">
-							<span className="text-gray-500">
-								Correo electrónico
-							</span>
+							<span className="text-gray-500">Email address</span>
 						</label>
 						<input
 							type="email"
@@ -179,7 +177,7 @@ function SignupForm({ onFinish }) {
 						/>
 						{errors.email && (
 							<span className="text-xs text-red-500 absolute bottom-0 transform translate-y-full">
-								Correo no válido
+								Invalid email
 							</span>
 						)}
 					</div>
@@ -195,7 +193,7 @@ function SignupForm({ onFinish }) {
 				}}
 				disabled={loading}
 			>
-				Registrarse
+				Sign up
 			</Button>
 		</form>
 	);

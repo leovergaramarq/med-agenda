@@ -5,7 +5,12 @@ import CalendarDayBlock from './CalendarDayBook';
 
 import moment from 'moment';
 
-function Calendar({ appointments, setAppointments }) {
+function Calendar({
+	appointments,
+	setAppointments,
+	selectedDate,
+	setSelectedDate
+}) {
 	const [date, setDate] = useState(new Date());
 	const [days, setDays] = useState(() =>
 		Array.from({
@@ -18,16 +23,13 @@ function Calendar({ appointments, setAppointments }) {
 			Array.from({
 				length: moment(date).daysInMonth()
 			}).map((_, i) => i + 1)
-		)
+		);
 	}, [date]);
 
 	return (
 		<div>
-			<CalendarControllers
-				currDate={date}
-				changeDate={setDate}
-			/>
-			<div className="grid gap-x-8 gap-y-4 grid-cols-7 mt-12">
+			<CalendarControllers currDate={date} changeDate={setDate} />
+			<div className="grid gap-x-8 gap-y-4 grid-cols-7 mt-8">
 				<div className="text-center">Sunday</div>
 				<div className="text-center">Monday</div>
 				<div className="text-center">Tuesday</div>
@@ -38,12 +40,12 @@ function Calendar({ appointments, setAppointments }) {
 				{days.map((day, i) => (
 					<CalendarDayBlock
 						key={i}
-						current_date={
-							moment(date).set('date', day)
-						}
-						month_date={date}
 						setAppointments={setAppointments}
 						appointments={appointments}
+						current_date={moment(date).set('date', day)}
+						month_date={date}
+						selectedDate={selectedDate}
+						setSelectedDate={setSelectedDate}
 					/>
 				))}
 			</div>

@@ -18,15 +18,16 @@ export async function getBookingsFromUser({ idUser }) {
 	);
 }
 
-export async function createBooking({ idUser, date, name }) {
+export async function createBooking({ idUser, date, idType }) {
 	console.log(moment(date).isBefore(moment(), 'D'), date);
 	if (moment(date).isBefore(moment(), 'D')) {
 		return new ApiResponse(400, {
-			message: 'You can only book with one or more days of anticipation. The date must be later than today'
+			message:
+				'You can only book with one or more days of anticipation. The date must be later than today'
 		});
 	}
 	const bookings = localStorageUtil.getValue(BOOKINGS_KEY) || [];
-	const booking = new Booking(name, date, idUser);
+	const booking = new Booking(idType, date, idUser);
 	bookings.push(booking);
 	localStorageUtil.setValue(BOOKINGS_KEY, bookings);
 
@@ -35,7 +36,7 @@ export async function createBooking({ idUser, date, name }) {
 	});
 }
 
-export async function updateBooking( id, rate) {
+export async function updateBooking(id, rate) {
 	const bookings = localStorageUtil.getValue(BOOKINGS_KEY) || [];
 	console.log(bookings, id);
 	const booking = bookings.find(({ id: idBooking }) => idBooking == id);
