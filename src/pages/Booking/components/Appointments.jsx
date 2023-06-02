@@ -1,4 +1,4 @@
-import AppointmentCard from '../../../shared/components/AppointmentCard'
+import AppointmentCard from '../../../shared/components/AppointmentCard';
 
 function Appointments({ appointments }) {
 	return (
@@ -8,15 +8,19 @@ function Appointments({ appointments }) {
 			) : (
 				<>
 					<h2 className="pl-5 pt-5 text-2xl mb-4">
-						Scheduled medical appointments
+						Upcoming scheduled medical appointments
 					</h2>
 					<div className="h-full flex flex-col gap-4 items-center overflow-y-auto">
-						{appointments.map((appointment) => (
-							<AppointmentCard
-								key={appointment.id}
-								info={appointment}
-							/>
-						))}
+						{appointments
+							.filter((appointment) => {
+								return new Date() < new Date(appointment.date);
+							})
+							.map((appointment) => (
+								<AppointmentCard
+									key={appointment.id}
+									info={appointment}
+								/>
+							))}
 					</div>
 				</>
 			)}

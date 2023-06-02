@@ -22,6 +22,12 @@ function History() {
 		setModal(true);
 	};
 
+	const styleModal = {
+		overlay: {
+			outerHeight: '50px'
+		}
+	};
+
 	useEffect(() => {
 		const { id } = getTokenPayload();
 		setTimeout(() => {
@@ -49,13 +55,13 @@ function History() {
 					{loading ? (
 						loader()
 					) : (
-						<div className="flex flex-col w-full h-screen rounded shadow-xl border-8 bg-neutral-50">
-							<h1>History</h1>
+						<div className="flex flex-col w-screen h-screen rounded shadow-xl border-8 bg-neutral-50">
+							<h1 className="self-center">History</h1>
 							{appointments.length === 0 ? (
 								<div>No appointments</div>
 							) : (
 								<>
-									<h2 className="pl-5 pt-5 text-2xl mb-4">
+									<h2 className="self-center pl-5 pt-3 text-2xl mb-4">
 										Scheduled medical appointments
 									</h2>
 									<div className="h-full flex flex-col gap-4 items-center overflow-y-auto">
@@ -83,13 +89,30 @@ function History() {
 							)}
 						</div>
 					)}
-					<Modal isOpen={modal} setIsOpen={setModal}>
-						<h1>How was your appointment?</h1>
-						<StarRating
-							appointment={actualAppointment}
-							setOpenModal={setModal}
-							setOnRate={setOnRate}
-						/>
+					<Modal
+						style={styleModal}
+						isOpen={modal}
+						setIsOpen={setModal}
+					>
+						<div className="flex flex-col justify-center items-center">
+							<div className="flex flex-col gap-2 text-center">
+								<h1 className="text-4xl">
+									How was your experience?
+								</h1>
+								<p className="text-base">
+									Our dedicated team is committed to acting
+									upon the feedback received promptly. We
+									continuously evaluate and refine our
+									processes to ensure that we meet and exceed
+									our patients' expectations.
+								</p>
+							</div>
+							<StarRating
+								appointment={actualAppointment}
+								setOpenModal={setModal}
+								setOnRate={setOnRate}
+							/>
+						</div>
 					</Modal>
 				</div>
 			</Navbar>
