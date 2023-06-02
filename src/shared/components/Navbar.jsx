@@ -26,6 +26,9 @@ function Navbar({ children }) {
 						<Link to="/booking">BOOK</Link>
 					</li>
 					<li className="text-center cursor-pointer text-blue-primary font-medium hover:underline">
+						<Link to="/incoming-bookings">INCOMING BOOKINGS</Link>
+					</li>
+					<li className="text-center cursor-pointer text-blue-primary font-medium hover:underline">
 						<Link to="/history">HISTORY</Link>
 					</li>
 					<li className="text-center cursor-pointer text-blue-primary font-medium hover:underline">

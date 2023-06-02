@@ -54,12 +54,6 @@ function NavbarGuest() {
 					MedAgenda
 				</a>
 				<ul className="flex gap-8 lg:gap-6 md:gap-4 sm:gap-2 items-center">
-					<li className="text-center cursor-pointer text-blue-primary font-medium hover:underline">
-						HOME
-					</li>
-					<li className="text-center cursor-pointer text-blue-primary font-medium hover:underline">
-						ABOUT
-					</li>
 					<li className="">
 						<Button className="rounded-full" onClick={handleLogin}>
 							LOGIN

@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Notifications from './pages/Notifications';
 import Booking from './pages/Booking';
+import IncomingBookings from './pages/IncomingBookings';
 import ProtectedRoute from './shared/components/ProtectedRoute';
 import GuestRoute from './shared/components/GuestRoute';
 import LoginComponent from './pages/Login';
@@ -22,6 +23,10 @@ function App() {
 					<Route path="" element={<ProtectedRoute />}>
 						<Route path="/home" element={<Home />} />
 						<Route path="/booking" element={<Booking />} />
+						<Route
+							path="/incoming-bookings"
+							element={<IncomingBookings />}
+						/>
 						<Route path="/history" element={<History />} />
 						<Route
 							path="/notifications"
